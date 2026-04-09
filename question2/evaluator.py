@@ -1,7 +1,47 @@
-def evaluate_file(input_path: str) -> list[dict]:
-    #implement tokenizer, parser, evaluator
-    return []
+def tokenize_expression(expr):
 
-if __name__ == "__main__":
-    res = evaluate_file("sample_input.txt")
-    print(res)
+
+    ##first attempt at tokenizer
+    ##still need to handle unary minus and many other cases
+    ##also haven't added implicit multiplication yet
+
+
+    tokens = []
+    i = 0
+
+    while i < len(expr):
+        ch = expr[i]
+
+ ##skipping spaces
+
+        if ch == " ":
+            i += 1
+            continue
+        
+        ##only integers for now
+        
+        if ch.isdigit():
+            num = ch
+            i += 1
+            while i < len(expr) and expr[i].isdigit():
+                num += expr[i]
+                i += 1
+            tokens.append(("NUM", num))
+            continue
+        if ch in "+-*/()":
+
+            ##unary minus not handled properly yet
+            if ch == "(":
+                tokens.append(("LPAREN", ch))
+            elif ch == ")":
+                tokens.append(("RPAREN", ch))
+            else:
+                tokens.append(("OP", ch))
+            i += 1
+            continue
+
+        ##ignoring unknown characters
+        i += 1
+
+    tokens.append(("END", ""))
+    return tokens
