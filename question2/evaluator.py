@@ -1,10 +1,7 @@
 def tokenize_expression(expr):
 
-
-    ##first attempt at tokenizer
-    ##still need to handle unary minus and many other cases
-    ##also haven't added implicit multiplication yet
-
+    ##second attempt at tokenizer
+    ##trying to fix unary minus and trying to make tokens a bit more consistent
 
     tokens = []
     i = 0
@@ -12,14 +9,13 @@ def tokenize_expression(expr):
     while i < len(expr):
         ch = expr[i]
 
- ##skipping spaces
-
+        ##skipping spaces
         if ch == " ":
             i += 1
             continue
-        
-        ##only integers for now
-        
+
+        ##still only integers
+
         if ch.isdigit():
             num = ch
             i += 1
@@ -28,9 +24,19 @@ def tokenize_expression(expr):
                 i += 1
             tokens.append(("NUM", num))
             continue
-        if ch in "+-*/()":
 
-            ##unary minus not handled properly yet
+        ##handling unary minus but still not properly
+
+        if ch == "-":
+            if not tokens or tokens[-1][0] in ("OP", "LPAREN"):
+                tokens.append(("OP", "UNARY_MINUS"))
+            else:
+                tokens.append(("OP", "-"))
+            i += 1
+            continue
+
+        ##other operators and parentheses
+        if ch in "+*/()":
             if ch == "(":
                 tokens.append(("LPAREN", ch))
             elif ch == ")":
@@ -40,7 +46,7 @@ def tokenize_expression(expr):
             i += 1
             continue
 
-        ##ignoring unknown characters
+        ##still ignoring unknown characters for now
         i += 1
 
     tokens.append(("END", ""))
