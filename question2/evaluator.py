@@ -1,3 +1,13 @@
+##Importing the tokenizer and parser so this file can run the whole program.
+##tokenize_expression turns the input into tokens, and P builds the parse tree.
+
+from tokenizer import tokenize_expression
+from parser import P
+
+
+
+###Evaluator Part
+##This function takes the parse tree and works out the final answer.
 def eval_tree(t):
     # number
     if isinstance(t, int):
