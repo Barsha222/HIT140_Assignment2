@@ -77,7 +77,3 @@ def tokenize_expression(expr: str):
     ##add end token so parser knows input is finished
     add_token("END", "")
     return tokens
-
-##temporary test block (I'll remove this before submitting)##
-if __name__ == "__main__":
-    print(tokenize_expression("3 * -(2+1)"))
