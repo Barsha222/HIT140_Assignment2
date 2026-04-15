@@ -6,7 +6,7 @@ from parser import P
 
 
 
-###Evaluator Part
+###Evaluator Part(Sundar)
 ##This function takes the parse tree and works out the final answer.
 def eval_tree(t):
     # number
@@ -122,5 +122,50 @@ def process_line(expr, tokenizer, parser_class, evaluator):
         f"Tokens: {format_tokens(tokens)}\n"
         f"Result: {format_result(result)}\n"
     )
+
+
+##File Processing + Output Writing
+
+def evaluate_file(input_path="sample_input.txt"):
+    
+    ##Reads each line from the input file and runs it through and stores each expression's information in a dictionary.
+    
+    
+    results = []
+
+    with open(input_path, "r") as f:
+        for line in f:
+            expr = line.strip()
+            if not expr:
+                continue  ##skip empty lines
+
+            formatted = process_line(expr, tokenize_expression, P, eval_tree)
+
+            ##split the 4 lines and store them in a dictionary
+            lines = formatted.strip().split("\n")
+            entry = {
+                "input": lines[0].replace("Input: ", ""),
+                "tree": lines[1].replace("Tree: ", ""),
+                "tokens": lines[2].replace("Tokens: ", ""),
+                "result": lines[3].replace("Result: ", "")
+            }
+            results.append(entry)
+
+    return results
+
+if __name__ == "__main__":
+    
+    ##Runs evaluate_file() and writes everything into output.txt
+    
+    
+    output_data = evaluate_file()
+
+    with open("output.txt", "w") as out:
+        for item in output_data:
+            out.write(f"Input: {item['input']}\n")
+            out.write(f"Tree: {item['tree']}\n")
+            out.write(f"Tokens: {item['tokens']}\n")
+            out.write(f"Result: {item['result']}\n\n")
+
 
 

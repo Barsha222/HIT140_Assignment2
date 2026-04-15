@@ -3,7 +3,7 @@ def tokenize_expression(expr: str):
     ##final tokenizer version for the assignment
     ##trying to handle most cases properly now:
     ##numbers, operators, brackets, unary minus, and implicit multiplication
-    ##if something weird shows up (like unary +), I return None
+    ##if something weird shows up (like unary +), It will return None
 
     tokens = []
     index = 0
