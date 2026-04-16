@@ -116,4 +116,4 @@ if __name__ == "__main__":
         verify_decryption()
 
     except ValueError:
-        print("Invalid input. Please enter integers for the shift values.")
+        print("Input is invalid. Please enter valid integers for shift values.")
