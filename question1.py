@@ -1,3 +1,4 @@
+#----------Question 1-----------
 import os
 
 # --- PART 1: CORE ENCRYPTION LOGIC (Member 1) ---
